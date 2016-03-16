@@ -439,8 +439,7 @@ var Select = React.createClass({
 	},
 
 	handleInputBlur (event) {
-		var menuDOM = ReactDOM.findDOMNode(this.refs.menu);
-		if (document.activeElement.isEqualNode(menuDOM)) {
+		if (this.state.isOpen && document.activeElement.isEqualNode(this.refs.menu)) {
 			return;
 		}
 		this._blurTimeout = setTimeout(() => {
