@@ -187,7 +187,7 @@ const Select = React.createClass({
 	},
 
 	handleInputBlur (event) {
-		if (document.activeElement.isEqualNode(this.refs.menu)) {
+		if (this.state.isOpen && document.activeElement.isEqualNode(this.refs.menu)) {
 			return;
 		}
 		if (this.props.onBlur) {

@@ -464,7 +464,7 @@ var Select = _react2['default'].createClass({
 	},
 
 	handleInputBlur: function handleInputBlur(event) {
-		if (document.activeElement.isEqualNode(this.refs.menu)) {
+		if (this.state.isOpen && document.activeElement.isEqualNode(this.refs.menu)) {
 			return;
 		}
 		if (this.props.onBlur) {

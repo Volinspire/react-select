@@ -872,6 +872,25 @@ module.exports = charenc;
 })();
 
 },{}],13:[function(require,module,exports){
+/**
+ * Determine if an object is Buffer
+ *
+ * Author:   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * License:  MIT
+ *
+ * `npm install is-buffer`
+ */
+
+module.exports = function (obj) {
+  return !!(obj != null &&
+    (obj._isBuffer || // For Safari 5-7 (missing Object.prototype.constructor)
+      (obj.constructor &&
+      typeof obj.constructor.isBuffer === 'function' &&
+      obj.constructor.isBuffer(obj))
+    ))
+}
+
+},{}],14:[function(require,module,exports){
 module.exports = function() {
   var mediaQuery;
   if (typeof window !== "undefined" && window !== null) {
@@ -886,7 +905,7 @@ module.exports = function() {
   return false;
 };
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function(){
   var crypt = require('crypt'),
       utf8 = require('charenc').utf8,
@@ -1048,26 +1067,7 @@ module.exports = function() {
 
 })();
 
-},{"charenc":11,"crypt":12,"is-buffer":15}],15:[function(require,module,exports){
-/**
- * Determine if an object is Buffer
- *
- * Author:   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * License:  MIT
- *
- * `npm install is-buffer`
- */
-
-module.exports = function (obj) {
-  return !!(
-    obj != null &&
-    obj.constructor &&
-    typeof obj.constructor.isBuffer === 'function' &&
-    obj.constructor.isBuffer(obj)
-  )
-}
-
-},{}],16:[function(require,module,exports){
+},{"charenc":11,"crypt":12,"is-buffer":13}],16:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1274,8 +1274,7 @@ module.exports = React.createClass({
       size: 50,
       rating: 'g',
       https: false,
-      "default": "retro",
-      className: ""
+      "default": "retro"
     };
   },
   render: function() {
@@ -1306,24 +1305,24 @@ module.exports = React.createClass({
       modernBrowser = 'srcset' in document.createElement('img');
     }
     if (!modernBrowser && isRetina()) {
-      return React.createElement("img", {
+      return React.createElement("img", React.__spread({
         "style": this.props.style,
         "className": "react-gravatar " + this.props.className,
         "src": retinaSrc,
         "height": this.props.size,
         "width": this.props.size
-      });
+      }, this.props));
     } else {
-      return React.createElement("img", {
+      return React.createElement("img", React.__spread({
         "style": this.props.style,
         "className": "react-gravatar " + this.props.className,
         "src": src,
         "srcSet": retinaSrc + " 2x",
         "height": this.props.size,
         "width": this.props.size
-      });
+      }, this.props));
     }
   }
 });
 
-},{"is-retina":13,"md5":14,"querystring":18,"react":undefined}]},{},[1]);
+},{"is-retina":14,"md5":15,"querystring":18,"react":undefined}]},{},[1]);
