@@ -113,12 +113,14 @@ class Select extends React.Component {
 	}
 
 	componentDidMount() {
+		this._mounted = true;
 		if (this.props.asyncOptions && this.props.autoload) {
 			this.autoloadAsyncOptions();
 		}
 	}
 
 	componentWillUnmount() {
+		this._mounted = false;
 		clearTimeout(this._blurTimeout);
 		clearTimeout(this._focusTimeout);
 		if (this.state.isOpen) {
@@ -164,7 +166,7 @@ class Select extends React.Component {
 			clearTimeout(this._blurTimeout);
 			clearTimeout(this._focusTimeout);
 			this._focusTimeout = setTimeout(() => {
-				if (!this.isMounted()) return;
+				if (!this._mounted) return;
 				this.getInputNode().focus();
 				this._focusAfterUpdate = false;
 			}, 50);
@@ -447,7 +449,7 @@ class Select extends React.Component {
 			return;
 		}
 		this._blurTimeout = setTimeout(() => {
-			if (this._focusAfterUpdate || !this.isMounted()) return;
+			if (this._focusAfterUpdate || !this._mounted) return;
 			this.setState({
 				inputValue: "",
 				isFocused: false,

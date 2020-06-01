@@ -370,6 +370,7 @@ var Select = (function (_React$Component) {
 	}, {
 		key: "componentDidMount",
 		value: function componentDidMount() {
+			this._mounted = true;
 			if (this.props.asyncOptions && this.props.autoload) {
 				this.autoloadAsyncOptions();
 			}
@@ -377,6 +378,7 @@ var Select = (function (_React$Component) {
 	}, {
 		key: "componentWillUnmount",
 		value: function componentWillUnmount() {
+			this._mounted = false;
 			clearTimeout(this._blurTimeout);
 			clearTimeout(this._focusTimeout);
 			if (this.state.isOpen) {
@@ -416,7 +418,7 @@ var Select = (function (_React$Component) {
 				clearTimeout(this._blurTimeout);
 				clearTimeout(this._focusTimeout);
 				this._focusTimeout = setTimeout(function () {
-					if (!_this3.isMounted()) return;
+					if (!_this3._mounted) return;
 					_this3.getInputNode().focus();
 					_this3._focusAfterUpdate = false;
 				}, 50);
@@ -680,7 +682,7 @@ var Select = (function (_React$Component) {
 				return;
 			}
 			this._blurTimeout = setTimeout(function () {
-				if (_this7._focusAfterUpdate || !_this7.isMounted()) return;
+				if (_this7._focusAfterUpdate || !_this7._mounted) return;
 				_this7.setState({
 					inputValue: "",
 					isFocused: false,
